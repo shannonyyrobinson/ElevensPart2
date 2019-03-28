@@ -60,7 +60,7 @@ public class ElevensBoard extends Board {
             if (containsPairSum11(selectedCards) == true){
                 return true;
             }
-            if (containsJQK(selectedCards) == true){
+            else if (containsJQK(selectedCards) == true){
                 return true;
             }
             return false;
@@ -77,13 +77,31 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-            for (int i = 0; i<cards.length; i++){
-                for (int j = 0; j<cards.length; j++){
-                    if (cardAt(cards(i)).pointValue() + cardAt(cards(j)).pointValue() == 11)
+            for (int i = 0; i<10; i++){
+                for (int j = 0; j<10; j++){
+                    if (cardAt(i).pointValue() + cardAt(j).pointValue() == 11){
+                        return true;
+                    }
                 }
             }
-            
-            cardAt(cards(i)).pointValue()
+            boolean countK = false;
+            boolean countJ = false;
+            boolean countQ = false;
+            for (int c = 0; c<10; c++){
+                if (cardAt(c).rank().equals("king")){
+                    countK = true;
+                }
+                if (cardAt(c).rank().equals("queen")){
+                    countQ = true;
+                }
+                if (cardAt(c).rank().equals("jack")){
+                    countJ = true;
+                }
+            }
+            if (countK == true && countQ == true && countJ == true){
+                return true;
+            }
+            return false;
 	}
 
 	/**
@@ -113,8 +131,21 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-            int pairVal = cardAt(selectedCards.get(0)).pointValue() + cardAt(selectedCards.get(1)).pointValue() + cardAt(selectedCards.get(2)).pointValue();
-            if (pairVal == 0){
+            boolean countK = false;
+            boolean countJ = false;
+            boolean countQ = false;
+            for (int c = 0; c<4; c++){
+                if (cardAt(selectedCards.get(c)).rank().equals("king")){
+                    countK = true;
+                }
+                if (cardAt(selectedCards.get(c)).rank().equals("queen")){
+                    countQ = true;
+                }
+                if (cardAt(selectedCards.get(c)).rank().equals("jack")){
+                    countJ = true;
+                }
+            }
+            if (countK == true && countQ == true && countJ == true){
                 return true;
             }
             return false;
